@@ -1,4 +1,4 @@
-# Docker file for fshack ChRIS plugin app
+# Docker file for fshack_infant ChRIS plugin app
 #
 # Build with
 #
@@ -6,20 +6,20 @@
 #
 # For example if building a local version, you could do:
 #
-#   docker build -t local/pl-fshack .
+#   docker build -t local/pl-fshack-infant .
 #
 # In the case of a proxy (located at say 10.41.13.4:3128), do:
 #
 #    export PROXY="http://10.41.13.4:3128"
-#    docker build --build-arg http_proxy=${PROXY} --build-arg UID=$UID -t local/pl-fshack .
+#    docker build --build-arg http_proxy=${PROXY} --build-arg UID=$UID -t local/pl-fshack-infant .
 #
 # To run an interactive shell inside this container, do:
 #
-#   docker run -ti --entrypoint /bin/bash local/pl-fshack
+#   docker run -ti --entrypoint /bin/bash local/pl-fshack-infant
 #
 # To pass an env var HOST_IP to container, do:
 #
-#   docker run -ti -e HOST_IP=$(ip route | grep -v docker | awk '{if(NF==11) print $9}') --entrypoint /bin/bash local/pl-fshack
+#   docker run -ti -e HOST_IP=$(ip route | grep -v docker | awk '{if(NF==11) print $9}') --entrypoint /bin/bash local/pl-fshack-infant
 #
 
 
@@ -29,7 +29,7 @@ FROM fnndsc/ubuntu-python3:latest
 LABEL maintainer="dev@babymri.org"
 
 ARG UID=1001
-ENV APPROOT="/usr/src/fshack"
+ENV APPROOT="/usr/src/fshack_infant"
 ENV UID=$UID DEBIAN_FRONTEND=noninteractive
 COPY ["fshack_infant/", "requirements.txt", "license.txt", "${APPROOT}/"]
 
@@ -65,4 +65,4 @@ ENV PATH="/usr/local/freesurfer/bin:/usr/local/freesurfer/fsfast/bin:/usr/local/
     MNI_DIR="/usr/local/freesurfer/mni"                     \
     FSF_OUTPUT_FORMAT="nii.gz"
 
-CMD ["fshack.py", "--help"]
+CMD ["fshack_infant.py", "--help"]

@@ -39,7 +39,7 @@ RUN pip install -r requirements.txt                         \
     && apt-get update -q &&                                 \
     apt-get -qq install bc binutils libgomp1 perl psmisc curl tar tcsh uuid-dev vim-common libjpeg62-dev \
     libglu1-mesa libxmu6 libglib2.0-0 qt5-default &&        \
-    curl https://surBfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/infant/freesurfer-linux-centos7_x86_64-7.1.1-infant.tar.gz \
+    curl https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/infant/freesurfer-linux-centos7_x86_64-7.1.1-infant.tar.gz | \
     tar -C /usr/local -xz                                   \
     && mv license.txt /usr/local/freesurfer                 \
     && apt-get install -y locales                           \

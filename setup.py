@@ -1,5 +1,10 @@
+import sys 
 from os import path
 from setuptools import setup
+
+# Make sure we are running python3.5+
+if 10 * sys.version_info[0] + sys.version_info[1] < 35:
+    sys.exit("Sorry, only Python 3.5+ is supported.")
 
 with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
     readme = f.read()
@@ -13,7 +18,7 @@ setup(
     author_email     = 'dev@babyMRI.org',
     url              = 'http://wiki',
     packages         = ['fshack_infant'],
-    install_requires = ['chrisapp'],
+    install_requires = ['chrisapp', 'pudb'],
     test_suite       = 'nose.collector',
     tests_require    = ['nose'],
     license          = 'MIT',

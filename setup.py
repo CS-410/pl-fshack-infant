@@ -2,7 +2,7 @@ import sys
 from os import path
 from setuptools import setup
 
-# Make sure we are running python3.5+
+# Make sure we are running Python 3.5+
 if 10 * sys.version_info[0] + sys.version_info[1] < 35:
     sys.exit("Sorry, only Python 3.5+ is supported.")
 
@@ -11,7 +11,7 @@ with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
 
 setup(
     name             = 'fshack_infant',
-    version          = '0.1',
+    version          = '1.0',
     description      = 'An app to ...',
     long_description = readme,
     author           = 'FNNDSC',

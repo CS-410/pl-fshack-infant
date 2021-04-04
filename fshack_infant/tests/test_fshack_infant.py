@@ -1,4 +1,3 @@
-
 from unittest import TestCase
 from unittest import mock
 from fshack_infant.fshack_infant import Fshack_infant

@@ -2,7 +2,7 @@
 #
 # fshack_infant DS ChRIS plugin app
 #
-# (c) 2016-2020 Fetal-Neonatal Neuroimaging & Developmental Science Center
+# (c) 2016-2021 Fetal-Neonatal Neuroimaging & Developmental Science Center
 #                   Boston Children's Hospital
 #
 #              http://childrenshospital.org/FNNDSC/
@@ -22,19 +22,18 @@ from    chrisapp.base import ChrisApp
 import  pudb
 
 Gstr_title = """
-  __     _                _      _        __            _   
- / _|   | |              | |    (_)      / _|          | |  
-| |_ ___| |__   __ _  ___| | __  _ _ __ | |_ __ _ _ __ | |_ 
-|  _/ __| '_ \ / _` |/ __| |/ / | | '_ \|  _/ _` | '_ \| __|
-| | \__ \ | | | (_| | (__|   <  | | | | | || (_| | | | | |_ 
-|_| |___/_| |_|\__,_|\___|_|\_\ |_|_| |_|_| \__,_|_| |_|\__|
-                            ______                          
-                           |______|     
+  __     _                _              _        __            _   
+ / _|   | |              | |            (_)      / _|          | |  
+| |_ ___| |__   __ _  ___| | __          _ _ __ | |_ __ _ _ __ | |_ 
+|  _/ __| '_ \ / _` |/ __| |/ /  _____  | | '_ \|  _/ _` | '_ \| __|
+| | \__ \ | | | (_| | (__|   <  |_____| | | | | | || (_| | | | | |_ 
+|_| |___/_| |_|\__,_|\___|_|\_\         |_|_| |_|_| \__,_|_| |_|\__|
 """
 
 Gstr_synopsis = """
     NAME
        fshack_infant.py
+       
     SYNOPSIS
         python fshack_infant.py                                         \\
             [-i|--inputFile <inputFileWithinInputDir>]                  \\
@@ -50,94 +49,104 @@ Gstr_synopsis = """
             [--version]                                                 \\
             <inputDir>                                                  \\
             <outputDir>
+            
     DESCRIPTION
-        This ChRIS DS plugin contains a complete FreeSurfer
-                https://surfer.nmr.mgh.harvard.edu/fswiki/rel7downloadsversion
-        distribution. Not all FreeSurfer internal applications are exposed at
-        the plugin level, however. At time of writing, the following FreeSurfer
-        applications are directly accessible from the plugin CLI:
+        This ChRIS DS plugin contains a complete Infant FreeSurfer
+        (https://surfer.nmr.mgh.harvard.edu/fswiki/infantFS) distribution.
+        Not all Infant FreeSurfer internal applications are exposed at the
+        plugin level, however. At time of writing, the following Infant
+        FreeSurfer applications are directly accessible from the plugin CLI:
             * recon-all
             * mri_convert
             * mri_info
             * mris_info
-        This plugin is meant to demonstrate some design patterns as well
-        as providing some utility for running FreeSurfer within the context
-        of ChRIS. It is not meant nor intended to be a canonical FreeSurfer
+        This plugin is meant to demonstrate some design patterns as well as
+        providing some utility for running FreeSurfer within the context of
+        ChRIS. It is not meant nor intended to be a canonical Infant FreeSurfer
         ChRIS plugin -- as explicitly indicated by the name, FreeSurfer "hack",
-        `fshack_infant`. Colloquially, however, this plugin is also known as `f-shack`.
+        `fshack_infant`. Colloquially, however, this plugin is also known as
+        `f-shack`.
+        
     ARGS
         [-i|--inputFile <inputFileWithinInputDir>]
-        Input file to process. In most cases this is typically a DICOM file
-        or a nifti volume, but is also very dependent on context. This file
-        exists within the explictly provided CLI positional <inputDir>. If
-        specified as a string that starts with a period '.', then examine the
-        <inputDir> and assign the first ls-ordered file in the glob pattern:
-                        '*' + <inputFileWithoutPeriod> + '*'
+        Input file to process. In most cases this is typically a DICOM file or
+        a NIFTI volume, but is also very dependent on context. This file exists
+        within the explictly provided CLI positional <inputDir>. If specified
+        as a string that starts with a period '.', then examine the <inputDir>
+        and assign the first ls-ordered file in the glob pattern:
+            '*' + <inputFileWithoutPeriod> + '*'
         as the <inputFile>. So, an <inputFile> of '.0001' will assign the first
         file that satisfies the glob
-                                    '*0001*'
+            '*0001*'
         as <inputFile>.
+        
         [-o|--outputFile <outputFileWithinOutputDir>]
         Output file/directory name to use within the <outputDir>. Note the
         actual meaning of this usage is contextual to the particular <FSapp>.
         Note: In the case of `recon-all`, this argument maps to the
-                -s|--subjectID <subjID>
+            -s|--subjectID <subjID>
         CLI flag. This file is specified relative to the explicitly provided
         positional CLI <outputDir>.
-        Also note that the <outputFile> string is used to prepend many of the CLI
-        -stdout -stderr and -returncode filenames.
+        Also note that the <outputFile> string is used to prepend many of the
+        CLI -stdout -stderr and -returncode filenames.
+        
         [-e|--exec <commandToExec>]
-        Specifies the FreeSurfer command within the plugin/container to
-        execute.
+        Specifies the FreeSurfer command within the plugin/container to execute.
         Note that only a few of the FreeSurfer apps are currently exposed!
+        
         [-a|--args <argsPassedToExec>]
-        Optional string of additional arguments to "pass through" to the
-        FreeSurfer app.
-        The design pattern of this plugin is to provide all the CLI args for
-        a single app specificed `-exec` somewhat blindly. To this end, all the
-        args for a given internal FreeSurfer app are themselves specified at
-        the plugin level with this flag. These args MUST be contained within
-        single quotes (to protect them from the shell) and the quoted string
-        MUST start with the required keyword 'ARGS: '.
-        If the `--exec <FSapp>` does not require additional CLI args, then
-        this `--args <args>` can be safely omitted.
+        Optional string of additional arguments to "pass through" to the Infant
+        FreeSurfer app. The design pattern of this plugin is to provide all the
+        CLI args for a single app specificed `-exec` somewhat blindly. To this
+        end, all the arguments for a given internal Infant FreeSurfer app are
+        themselves specified at the plugin level with this flag. These args
+        MUST be contained within single quotes (to protect them from the shell)
+        and the quoted string MUST start with the required keyword 'ARGS: '.
+        If the `--exec <FSapp>` does not require additional CLI args, then this
+        `--args <args>` can be safely omitted.
+        
         [-h] [--help]
-        If specified, show help message.
+        Show help message.
+        
         [--json]
-        If specified, show json representation of app.
+        Show JSON representation of app.
+        
         [--man]
-        If specified, print (this) man page.
+        Print (this) man page.
+        
         [--meta]
-        If specified, print plugin meta data.
+        Print plugin metadata.
+        
         [--savejson <DIR>]
-        If specified, save json representation file to DIR.
+        Save JSON representation file to <DIR>.
+        
         [--version]
-        If specified, print version number.
+        Print version number.
 """
 
 
 class Fshack_infant(ChrisApp):
     DESCRIPTION  = '''
-        This app houses a complete FreeSurfer distro and exposes some
+        This app houses a complete Infant FreeSurfer distro and exposes some
         FreeSurfer apps at the level of the plugin CLI.'
     '''
     AUTHORS                 = 'FNNDSC (dev@babyMRI.org)'
     SELFPATH                = os.path.dirname(os.path.abspath(__file__))
     SELFEXEC                = os.path.basename(__file__)
     EXECSHELL               = 'python3'
-    TITLE                   = 'A quick-n-dirty attempt at hacking a FreeSurfer ChRIS plugin'
+    TITLE                   = 'A quick-and-dirty attempt at hacking an Infant FreeSurfer ChRIS plugin'
     CATEGORY                = ''
     TYPE                    = 'ds'
     DOCUMENTATION           = 'https://github.com/CS-410/pl-fshack-infant'
-    VERSION                 = '1.2.0'
-    ICON                    = ''  # url of an icon image
+    VERSION                 = '1.0.0'
+    ICON                    = '' # url of an icon image
     LICENSE                 = 'Opensource (MIT)'
     MAX_NUMBER_OF_WORKERS   = 1  # Override with integer value
     MIN_NUMBER_OF_WORKERS   = 1  # Override with integer value
-    MAX_CPU_LIMIT           = ''  # Override with millicore value as string, e.g. '2000m'
-    MIN_CPU_LIMIT           = ''  # Override with millicore value as string, e.g. '2000m'
-    MAX_MEMORY_LIMIT        = ''  # Override with string, e.g. '1Gi', '2000Mi'
-    MIN_MEMORY_LIMIT        = ''  # Override with string, e.g. '1Gi', '2000Mi'
+    MAX_CPU_LIMIT           = '' # Override with millicore value as string, e.g. '2000m'
+    MIN_CPU_LIMIT           = '' # Override with millicore value as string, e.g. '2000m'
+    MAX_MEMORY_LIMIT        = '' # Override with string, e.g. '1Gi', '2000Mi'
+    MIN_MEMORY_LIMIT        = '' # Override with string, e.g. '1Gi', '2000Mi'
     MIN_GPU_LIMIT           = 0  # Override with the minimum number of GPUs, as an integer, for your plugin
     MAX_GPU_LIMIT           = 0  # Override with the maximum number of GPUs, as an integer, for your plugin
 
@@ -185,15 +194,13 @@ class Fshack_infant(ChrisApp):
 
     def job_run(self, str_cmd):
         """
-        Running some CLI process via python is cumbersome. The typical/easy
-        path of
-                            os.system(str_cmd)
-        is deprecated and prone to hidden complexity. The preferred
-        method is via subprocess, which has a cumbersome processing
-        syntax. Still, this method runs the `str_cmd` and returns the
-        stderr and stdout strings as well as a returncode.
-        Providing readtime output of both stdout and stderr seems
-        problematic. The approach here is to provide realtime
+        Running some CLI process via Python is cumbersome. The typical path of
+            os.system(str_cmd)
+        is deprecated and prone to hidden complexity. The preferred method is
+        via subprocess, which has a cumbersome processing syntax. Still, this
+        method runs the `str_cmd` and returns the stderr and stdout strings as
+        well as a returncode. Providing readtime output of both stdout and
+        stderr seems problematic. The approach here is to provide realtime
         output on stdout and only provide stderr on process completion.
         """
         d_ret = {
@@ -244,11 +251,10 @@ class Fshack_infant(ChrisApp):
 
     def inputFileSpec_parse(self, options):
         """
-        Parse the inputFile value and possibly trigger some contentual
-        behaviour. Specifically, if the inputFile spec starts with a
-        period, '.', then search the inputDir for the first file with
-        that substring and assign that file as inputFile.
-        Modify the options variable in place.
+        Parse the inputFile value and possibly trigger some contentual behavior.
+        Specifically, if the inputFile spec starts with a period, '.', then
+        search the inputDir for the first file with that substring and assign
+        that file as inputFile. Modify the options variable in place.
         """
         str_thisDir:    str     = ''
         str_pattern:    str     = ''
@@ -282,7 +288,7 @@ class Fshack_infant(ChrisApp):
         else:
             str_args = l_appargs[0]
 
-        str_FSbinDir    = '/usr/local/freesurfer/bin'
+        str_FSbinDir    = '/usr/local/infant_freesurfer/bin'
         str_cmd         = ""
         if options.exec == 'recon-all':
             str_cmd = '%s/%s -i %s/%s -subjid %s/%s %s ' % \

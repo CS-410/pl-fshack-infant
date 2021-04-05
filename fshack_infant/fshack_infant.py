@@ -288,7 +288,7 @@ class Fshack_infant(ChrisApp):
         else:
             str_args = l_appargs[0]
 
-        str_FSbinDir    = '/usr/local/infant_freesurfer/bin'
+        str_FSbinDir    = '/usr/local/freesurfer/bin'
         str_cmd         = ""
         if options.exec == 'recon-all':
             str_cmd = '%s/%s -i %s/%s -subjid %s/%s %s ' % \
@@ -325,9 +325,3 @@ class Fshack_infant(ChrisApp):
         Print the app's man page.
         """
         print(Gstr_synopsis)
-
-
-# ENTRYPOINT
-if __name__ == "__main__":
-    chris_app = Fshack_infant()
-    chris_app.launch()

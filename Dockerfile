@@ -1,68 +1,58 @@
-# Docker file for fshack_infant ChRIS plugin app
+# Docker file for the pl-fshack-infant ChRIS plugin app
 #
-# Build with
-#
-#   docker build -t <name> .
-#
-# For example if building a local version, you could do:
-#
+# To build locally, do:
 #   docker build -t local/pl-fshack-infant .
 #
-# In the case of a proxy (located at say 10.41.13.4:3128), do:
-#
-#    export PROXY="http://10.41.13.4:3128"
-#    docker build --build-arg http_proxy=${PROXY} --build-arg UID=$UID -t local/pl-fshack-infant .
+# In the case of a proxy, do:
+#    docker build --build-arg http_proxy=http://<IP>:<URL> --build-arg UID=$UID -t local/pl-fshack-infant .
 #
 # To run an interactive shell inside this container, do:
-#
 #   docker run -ti --entrypoint /bin/bash local/pl-fshack-infant
 #
 # To pass an env var HOST_IP to container, do:
-#
 #   docker run -ti -e HOST_IP=$(ip route | grep -v docker | awk '{if(NF==11) print $9}') --entrypoint /bin/bash local/pl-fshack-infant
-#
-
-
 
 FROM fnndsc/ubuntu-python3:latest
-# FROM fnndsc/centos-python3:latest
-LABEL maintainer="dev@babymri.org"
+LABEL maintainer="FNNDSC <dev@babymri.org>"
+
+ARG FREESURFER_URL="https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/infant/freesurfer-linux-centos7_x86_64-7.1.1-infant.tar.gz"
+ENV FREESURFER_HOME="/usr/local/freesurfer"
 
 ARG UID=1001
-ENV APPROOT="/usr/src/fshack_infant"
-ENV UID=$UID DEBIAN_FRONTEND=noninteractive
-COPY ["fshack_infant/", "requirements.txt", "license.txt", "${APPROOT}/"]
+ENV UID=$UID
+ARG LOCALE="en_US.UTF-8"
+ENV DEBIAN_FRONTEND=noninteractive
 
+ENV APPROOT="/usr/src/fshack_infant"
+COPY ["fshack_infant/", "requirements.txt", "license.txt", "$APPROOT/"]
 WORKDIR $APPROOT
 
-RUN pip install -r requirements.txt                         \
-    && apt-get update -q &&                                 \
-    apt-get -qq install bc binutils libgomp1 perl psmisc curl tar tcsh uuid-dev vim-common libjpeg62-dev \
-    libglu1-mesa libxmu6 libglib2.0-0 qt5-default &&        \
-    curl https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/infant/freesurfer-linux-centos7_x86_64-7.1.1-infant.tar.gz | \
-    tar -C /usr/local -xz                                   \
-    && mv license.txt /usr/local/freesurfer                 \
-    && apt-get install -y locales                           \
-    && export LANGUAGE=en_US.UTF-8                          \
-    && export LANG=en_US.UTF-8                              \
-    && export LC_ALL=en_US.UTF-8                            \
-    && locale-gen en_US.UTF-8                               \
-    && dpkg-reconfigure locales                             \
+RUN pip install -r requirements.txt                                                         \
+    && apt-get update -q                                                                    \
+    && apt-get -qq install bc binutils libgomp1 perl psmisc curl tar tcsh uuid-dev \
+       vim-common libjpeg62-dev libglu1-mesa libxmu6 libglib2.0-0 qt5-default      \    
+    && curl -L -C - "$FREESURFER_URL" | tar -C /usr/local -xz                                  \
+    && mv license.txt "$FREESURFER_HOME"                                                    \
+    && apt-get install -y locales                                                           \
+    && export LANGUAGE="$LOCALE"                                                            \
+    && export LANG="$LOCALE"                                                                \
+    && export LC_ALL="$LOCALE"                                                              \
+    && locale-gen "$LOCALE"                                                                 \
+    && dpkg-reconfigure locales                                                             \
     && useradd -u $UID -ms /bin/bash localuser
 
-ENV PATH="/usr/local/freesurfer/bin:/usr/local/freesurfer/fsfast/bin:/usr/local/freesurfer/tktools:/usr/local/freesurfer/mni/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:" \
-    FREESURFER_HOME="/usr/local/freesurfer"                 \
-    SUBJECTS_DIR="/outgoing"                                \
-    MINC_LIB_DIR="/usr/local/freesurfer/mni/lib"            \
-    MNI_DATAPATH="/usr/local/freesurfer/mni/data"           \
-    PERL5LIB="/usr/local/freesurfer/mni/share/perl5"        \
-    MINC_BIN_DIR="/usr/local/freesurfer/mni/bin"            \
-    MNI_PERL5LIB="/usr/local/freesurfer/mni/share/perl5"    \
-    FMRI_ANALYSIS_DIR="/usr/local/freesurfer/fsfast"        \
-    FUNCTIONALS_DIR="/usr/local/freesurfer/sessions"        \
-    LOCAL_DIR="/usr/local/freesurfer/local"                 \
-    FSFAST_HOME="/usr/local/freesurfer/fsfast"              \
-    MNI_DIR="/usr/local/freesurfer/mni"                     \
+ENV PATH="$FREESURFER_HOME/bin:$FREESURFER_HOME/fsfast/bin:$FREESURFER_HOME/tktools:$FREESURFER_HOME/mni/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:" \
+    MNI_DIR="$FREESURFER_HOME/mni"                                                          \
+    MINC_LIB_DIR="$FREESURFER_HOME/mni/lib"                                                 \
+    MNI_DATAPATH="$FREESURFER_HOME/mni/data"                                                \
+    MINC_BIN_DIR="$FREESURFER_HOME/mni/bin"                                                 \
+    PERL5LIB="$FREESURFER_HOME/mni/share/perl5"                                             \
+    MNI_PERL5LIB="$FREESURFER_HOME/mni/share/perl5"                                         \
+    FUNCTIONALS_DIR="$FREESURFER_HOME/sessions"                                             \
+    LOCAL_DIR="$FREESURFER_HOME/local"                                                      \
+    FMRI_ANALYSIS_DIR="$FREESURFER_HOME/fsfast"                                             \
+    FSFAST_HOME="$FREESURFER_HOME/fsfast"                                                   \
+    SUBJECTS_DIR="/outgoing"                                                                \
     FSF_OUTPUT_FORMAT="nii.gz"
 
 CMD ["fshack_infant.py", "--help"]

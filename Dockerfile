@@ -29,7 +29,7 @@ FROM fnndsc/ubuntu-python3:latest
 LABEL maintainer="dev@babymri.org"
 
 ARG UID=1001
-ARG IFSURL = "https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/infant/freesurfer-linux-centos7_x86_64-7.1.1-infant.tar.gz"
+ARG IFSURL="https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/infant/freesurfer-linux-centos7_x86_64-7.1.1-infant.tar.gz"
 ENV APPROOT="/usr/src/fshack_infant"
 ENV IFSROOT="/usr/local/infant_freesurfer"
 ENV UID=$UID DEBIAN_FRONTEND=noninteractive

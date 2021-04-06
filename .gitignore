@@ -132,3 +132,4 @@ dmypy.json
 freesurfer/
 in/
 out/
+test.sh

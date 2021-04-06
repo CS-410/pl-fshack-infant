@@ -31,7 +31,8 @@ RUN pip install -r requirements.txt                                             
     && apt-get -qq install bc binutils libgomp1 perl psmisc curl tar tcsh uuid-dev \
        vim-common libjpeg62-dev libglu1-mesa libxmu6 libglib2.0-0 qt5-default      \
 	&& mkdir -p "$FREESURFER_HOME"                                                 \
-    && mv license.txt "$FREESURFER_HOME"                                           \
+    && mv license.txt "$FREESURFER_HOME/.license"                                  \
+    && ls -a "$FREESURFER_HOME"							   \
     && apt-get install -y locales                                                  \
     && export LANGUAGE="$LOCALE"                                                   \
     && export LANG="$LOCALE"                                                       \

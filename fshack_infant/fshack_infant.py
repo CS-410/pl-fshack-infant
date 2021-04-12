@@ -319,9 +319,3 @@ class Fshack_infant(ChrisApp):
         Print the app's man page.
         """
         print(Gstr_synopsis)
-
-
-# ENTRYPOINT
-if __name__ == "__main__":
-    chris_app = Fshack_infant()
-    chris_app.launch()

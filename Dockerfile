@@ -30,9 +30,6 @@ RUN pip install -r requirements.txt                                             
     && apt-get update -q                                                           \
     && apt-get -qq install bc binutils libgomp1 perl psmisc curl tar tcsh uuid-dev \
        vim-common libjpeg62-dev libglu1-mesa libxmu6 libglib2.0-0 qt5-default      \
-	&& mkdir -p "$FREESURFER_HOME"                                                 \
-    && mv license.txt "$FREESURFER_HOME/.license"                                  \
-    && ls -a "$FREESURFER_HOME"							   \
     && apt-get install -y locales                                                  \
     && export LANGUAGE="$LOCALE"                                                   \
     && export LANG="$LOCALE"                                                       \
@@ -55,4 +52,4 @@ ENV PATH="$FREESURFER_HOME/bin:$FREESURFER_HOME/fsfast/bin:$FREESURFER_HOME/tkto
     SUBJECTS_DIR="/outgoing"                                                       \
     FSF_OUTPUT_FORMAT="nii.gz"
 
-CMD ["fshack_infant.py --help"]
+CMD ["fshack_infant.py", "--help"]

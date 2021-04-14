@@ -14,7 +14,7 @@ elif [ "$1" == "--download" ]; then
 		cp license.txt freesurfer
 	fi
 elif [ "$1" == "--build" ]; then
-	docker build -t local/pl-fshack-infant-dev .
+	docker build -f Dockerfile.dev -t local/pl-fshack-infant-dev .
 elif [ "$1" == "--delete" ]; then
 	docker image rm local/pl-fshack-infant-dev
 	docker system prune

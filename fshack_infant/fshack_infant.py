@@ -125,11 +125,11 @@ class Fshack_infant(ChrisApp):
     SELFPATH                = os.path.dirname(os.path.abspath(__file__))
     SELFEXEC                = os.path.basename(__file__)
     EXECSHELL               = 'python3'
-    TITLE                   = 'A quick-n-dirty attempt at hacking a FreeSurfer ChRIS plugin'
+    TITLE                   = 'A quick-and-dirty attempt at hacking an Infant FreeSurfer ChRIS plugin'
     CATEGORY                = ''
     TYPE                    = 'ds'
     DOCUMENTATION           = 'https://github.com/CS-410/pl-fshack-infant'
-    VERSION                 = '1.2.0'
+    VERSION                 = '1.0.0'
     ICON                    = ''  # url of an icon image
     LICENSE                 = 'Opensource (MIT)'
     MAX_NUMBER_OF_WORKERS   = 1  # Override with integer value

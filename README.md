@@ -96,7 +96,7 @@ NOTE: The `recon-all` commands will take multiple hours to run to completion!
 
 ```
 docker run --rm                                                         \
-    -v ${DEVEL}/SAG-anon-nii/:/incoming -v ${DEVEL}/results/:/outgoing   
+    -v ${DEVEL}/SAG-anon-nii/:/incoming -v ${DEVEL}/results/:/outgoing  \
     -v $PWD/freesurfer:/usr/local/freesurfer                            \
     local/pl-fshack-infant-dev fshack_infant.py                         \
     -i 0001-1.3.12.2.1107.5.2.19.45152.2013030808110258929186035.dcm    \

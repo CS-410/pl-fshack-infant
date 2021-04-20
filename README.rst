@@ -40,17 +40,17 @@ Usage
 
     python fshack_infant.py
         [-i|--inputFile <file>]
-	    [-o|--outputFile <file>]
+        [-o|--outputFile <file>]
         [-e|--exec <command>]
-	    [-a|--args <arguments>]
-	    [-h|--help]
-	    [--man]
-	    [--meta]
-	    [--json]
-	    [--savejson <directory>]
-	    [-v|--verbosity <level>]
-	    [--version]
-	    <inputDir> <outputDir>
+        [-a|--args <arguments>]
+        [-h|--help]
+        [--man]
+        [--json]
+        [--savejson <directory>]
+        [--meta]
+        [-v|--verbosity <level>]
+        [--version]
+    <inputDir> <outputDir>
 
 
 Arguments
@@ -101,7 +101,7 @@ Arguments
     [--json]
     If specified, show JSON representation of app.
     
-    [--savejson <dir>]
+    [--savejson <directory>]
     If specified, save JSON representation file to <dir>.
     
     [--meta]

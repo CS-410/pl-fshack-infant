@@ -28,89 +28,92 @@ Gstr_title = """
 |  _/ __| '_ \ / _` |/ __| |/ / | | '_ \|  _/ _` | '_ \| __|
 | | \__ \ | | | (_| | (__|   <  | | | | | || (_| | | | | |_ 
 |_| |___/_| |_|\__,_|\___|_|\_\ |_|_| |_|_| \__,_|_| |_|\__|
-                            ______                          
-                           |______|     
 """
 
 Gstr_synopsis = """
     NAME
        fshack_infant.py
+       
     SYNOPSIS
-        python fshack_infant.py                                         \\
-            [-i|--inputFile <inputFileWithinInputDir>]                  \\
-            [-o|--outputFile <outputFileWithinOutputDir>]               \\
-            [-e|--exec <commandToExec>]                                 \\
-            [-a|--args <argsPassedToExec> ]                             \\
-            [-h] [--help]                                               \\
-            [--json]                                                    \\
-            [--man]                                                     \\
-            [--meta]                                                    \\
-            [--savejson <DIR>]                                          \\
-            [-v|--verbosity <level>]                                    \\
-            [--version]                                                 \\
-            <inputDir>                                                  \\
-            <outputDir>
+        python fshack_infant.py
+            [-i|--inputFile <file>]
+	        [-o|--outputFile <file>]
+            [-e|--exec <command>]
+	        [-a|--args <arguments>]
+	        [-h|--help]
+	        [--man]
+	        [--meta]
+	        [--json]
+	        [--savejson <directory>]
+	        [-v|--verbosity <level>]
+	        [--version]
+	        <inputDir> <outputDir>
+	        
     DESCRIPTION
-        This ChRIS DS plugin contains a complete FreeSurfer
-                https://surfer.nmr.mgh.harvard.edu/fswiki/rel7downloadsversion
-        distribution. Not all FreeSurfer internal applications are exposed at
-        the plugin level, however. At time of writing, the following FreeSurfer
-        applications are directly accessible from the plugin CLI:
-            * recon-all
-            * mri_convert
-            * mri_info
-            * mris_info
-        This plugin is meant to demonstrate some design patterns as well
-        as providing some utility for running FreeSurfer within the context
-        of ChRIS. It is not meant nor intended to be a canonical FreeSurfer
-        ChRIS plugin -- as explicitly indicated by the name, FreeSurfer "hack",
-        `fshack_infant`. Colloquially, however, this plugin is also known as `f-shack`.
+        This ChRIS DS plugin contains a complete Infant FreeSurfer distribution.
+        Not all FreeSurfer internal applications are exposed at the plugin level,
+        however. Currently, the following Infant FreeSurfer applications are
+        directly accessible from the plugin CLI:
+            * `recon-all`
+            * `mri_convert`
+            * `mri_info`
+            * `mris_info`
+        This plugin is meant to demonstrate certain design patterns and provide
+        some utility for running Infant FreeSurfer within the context of ChRIS.
+        It is not meant nor intended to be a canonical Infant FreeSurfer ChRIS
+        plugin -- as explicitly indicated by the name, FreeSurfer 'hack'.
+        Colloquially, this plugin is also known as `f-shack-infant`.
+        
     ARGS
-        [-i|--inputFile <inputFileWithinInputDir>]
-        Input file to process. In most cases this is typically a DICOM file
-        or a nifti volume, but is also very dependent on context. This file
-        exists within the explictly provided CLI positional <inputDir>. If
-        specified as a string that starts with a period '.', then examine the
-        <inputDir> and assign the first ls-ordered file in the glob pattern:
+        [-i|--inputFile <file>]
+        Input file to process. In most cases, this is typically a DICOM file or
+        a NIfTI volume, but is also very dependent on context. This file exists
+        within the explictly provided <inputDir> directory. If specified as a
+        string that starts with a period character, then <inputDir> will be
+        examined and the first `ls`-ordered file in the glob pattern
                         '*' + <inputFileWithoutPeriod> + '*'
-        as the <inputFile>. So, an <inputFile> of '.0001' will assign the first
-        file that satisfies the glob
-                                    '*0001*'
-        as <inputFile>.
-        [-o|--outputFile <outputFileWithinOutputDir>]
-        Output file/directory name to use within the <outputDir>. Note the
-        actual meaning of this usage is contextual to the particular <FSapp>.
-        Note: In the case of `recon-all`, this argument maps to the
-                -s|--subjectID <subjID>
-        CLI flag. This file is specified relative to the explicitly provided
-        positional CLI <outputDir>.
-        Also note that the <outputFile> string is used to prepend many of the CLI
-        -stdout -stderr and -returncode filenames.
-        [-e|--exec <commandToExec>]
-        Specifies the FreeSurfer command within the plugin/container to
-        execute.
-        Note that only a few of the FreeSurfer apps are currently exposed!
-        [-a|--args <argsPassedToExec>]
-        Optional string of additional arguments to "pass through" to the
-        FreeSurfer app.
-        The design pattern of this plugin is to provide all the CLI args for
-        a single app specificed `-exec` somewhat blindly. To this end, all the
-        args for a given internal FreeSurfer app are themselves specified at
-        the plugin level with this flag. These args MUST be contained within
-        single quotes (to protect them from the shell) and the quoted string
-        MUST start with the required keyword 'ARGS: '.
-        If the `--exec <FSapp>` does not require additional CLI args, then
-        this `--args <args>` can be safely omitted.
-        [-h] [--help]
+        will be assigned as the <file> argument. For example, specifying '.0001'
+        will assign the first file that satisfies the glob '*0001*'.
+        
+        [-o|--outputFile <file>]
+        Output file/directory name to use within the <outputDir> directory. Note
+        the actual meaning of this usage is contextual to the particular FS app.
+        For example, in the case of `recon-all`, this argument maps to the
+                                -s|--subjectID <ID>
+        flag. It should also be noted that the <file> string is used to prepend
+        many of the CLI -stdout -stderr and -returncode filenames.
+        
+        [-e|--exec <command>]
+        Specifies the FreeSurfer command within the plugin/container to execute.
+        As stated in the description, it must be noted that only a few of the
+        Infant FreeSurfer apps are currently exposed!
+        
+        [-a|--args <arguments>]
+        Optional string of additional arguments to 'pass through' to the FS app.
+        The design pattern of this plugin is to provide, somewhat blindly, all
+        the CLI arguments for a single app specified by the `exec` flag. To this
+        end, all the arguments for a given supported internal FreeSurfer app are
+        themselves specified at the plugin level with this flag. These arguments
+        MUST be contained within single quotes (to protect them from the shell)
+        and the quoted string MUST start with the required keyword 'ARGS: '. If
+        the FS app does not require additional CLI arguments, then this flag can
+        be safely omitted.
+        
+        [-h|--help]
         If specified, show help message.
-        [--json]
-        If specified, show json representation of app.
+        
         [--man]
         If specified, print (this) man page.
+        
+        [--json]
+        If specified, show JSON representation of app.
+        
+        [--savejson <dir>]
+        If specified, save JSON representation file to <dir>.
+        
         [--meta]
-        If specified, print plugin meta data.
-        [--savejson <DIR>]
-        If specified, save json representation file to DIR.
+        If specified, print plugin metadata.
+        
         [--version]
         If specified, print version number.
 """
@@ -132,14 +135,14 @@ class Fshack_infant(ChrisApp):
     VERSION                 = '1.0.0'
     ICON                    = ''  # url of an icon image
     LICENSE                 = 'Opensource (MIT)'
-    MAX_NUMBER_OF_WORKERS   = 1  # Override with integer value
-    MIN_NUMBER_OF_WORKERS   = 1  # Override with integer value
+    MAX_NUMBER_OF_WORKERS   = 1   # Override with integer value
+    MIN_NUMBER_OF_WORKERS   = 1   # Override with integer value
     MAX_CPU_LIMIT           = ''  # Override with millicore value as string, e.g. '2000m'
     MIN_CPU_LIMIT           = ''  # Override with millicore value as string, e.g. '2000m'
     MAX_MEMORY_LIMIT        = ''  # Override with string, e.g. '1Gi', '2000Mi'
     MIN_MEMORY_LIMIT        = ''  # Override with string, e.g. '1Gi', '2000Mi'
-    MIN_GPU_LIMIT           = 0  # Override with the minimum number of GPUs, as an integer, for your plugin
-    MAX_GPU_LIMIT           = 0  # Override with the maximum number of GPUs, as an integer, for your plugin
+    MIN_GPU_LIMIT           = 0   # Override with the minimum number of GPUs, as an integer, for your plugin
+    MAX_GPU_LIMIT           = 0   # Override with the maximum number of GPUs, as an integer, for your plugin
 
     # Use this dictionary structure to provide key-value output descriptive information
     # that may be useful for the next downstream plugin. For example:
@@ -159,13 +162,13 @@ class Fshack_infant(ChrisApp):
         Define the CLI arguments accepted by this plugin app.
         """
         self.add_argument("-a", "--args",
-                          help      = "FS arguments to pass",
+                          help      = "Infant FreeSurfer arguments to pass",
                           type      = str,
                           dest      = 'args',
                           optional=True,
                           default   = "")
         self.add_argument("-e", "--exec",
-                          help      = "FS app to run",
+                          help      = "Infant FreeSurfer app to run",
                           type      = str,
                           dest      = 'exec',
                           optional  = True,

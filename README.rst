@@ -39,18 +39,18 @@ Usage
 .. code::
 
     python fshack_infant.py
-           [-i|--inputFile <file>]
-	   [-o|--outputFile <file>]
-           [-e|--exec <command>]
-	   [-a|--args <arguments>]
-	   [-h|--help]
-	   [--man]
-	   [--meta]
-	   [--json]
-	   [--savejson <directory>]
-	   [-v|--verbosity <level>]
-	   [--version]
-	   <inputDir> <outputDir>
+        [-i|--inputFile <file>]
+	    [-o|--outputFile <file>]
+        [-e|--exec <command>]
+	    [-a|--args <arguments>]
+	    [-h|--help]
+	    [--man]
+	    [--meta]
+	    [--json]
+	    [--savejson <directory>]
+	    [-v|--verbosity <level>]
+	    [--version]
+	    <inputDir> <outputDir>
 
 
 Arguments
@@ -58,32 +58,66 @@ Arguments
 
 .. code::
 
-    [-h] [--help]
-    If specified, show help message and exit.
+    [-i|--inputFile <file>]
+    Input file to process. In most cases, this is typically a DICOM file or
+    a NIfTI volume, but is also very dependent on context. This file exists
+    within the explictly provided <inputDir> directory. If specified as a
+    string that starts with a period character, then <inputDir> will be
+    examined and the first `ls`-ordered file in the glob pattern
+                    '*' + <inputFileWithoutPeriod> + '*'
+    will be assigned as the <file> argument. For example, specifying '.0001'
+    will assign the first file that satisfies the glob '*0001*'.
     
-    [--json]
-    If specified, show json representation of app and exit.
+    [-o|--outputFile <file>]
+    Output file/directory name to use within the <outputDir> directory. Note
+    the actual meaning of this usage is contextual to the particular FS app.
+    For example, in the case of `recon-all`, this argument maps to the
+                            -s|--subjectID <ID>
+    flag. It should also be noted that the <file> string is used to prepend
+    many of the CLI -stdout -stderr and -returncode filenames.
+    
+    [-e|--exec <command>]
+    Specifies the FreeSurfer command within the plugin/container to execute.
+    As stated in the description, it must be noted that only a few of the
+    Infant FreeSurfer apps are currently exposed!
+    
+    [-a|--args <arguments>]
+    Optional string of additional arguments to 'pass through' to the FS app.
+    The design pattern of this plugin is to provide, somewhat blindly, all
+    the CLI arguments for a single app specified by the `exec` flag. To this
+    end, all the arguments for a given supported internal FreeSurfer app are
+    themselves specified at the plugin level with this flag. These arguments
+    MUST be contained within single quotes (to protect them from the shell)
+    and the quoted string MUST start with the required keyword 'ARGS: '. If
+    the FS app does not require additional CLI arguments, then this flag can
+    be safely omitted.
+    
+    [-h|--help]
+    If specified, show help message.
     
     [--man]
-    If specified, print (this) man page and exit.
-
+    If specified, print (this) man page.
+    
+    [--json]
+    If specified, show JSON representation of app.
+    
+    [--savejson <dir>]
+    If specified, save JSON representation file to <dir>.
+    
     [--meta]
-    If specified, print plugin meta data and exit.
-    
-    [--savejson <DIR>] 
-    If specified, save json representation file to DIR and exit. 
-    
+    If specified, print plugin metadata.
+        
     [-v <level>] [--verbosity <level>]
     Verbosity level for app. Not used currently.
     
     [--version]
-    If specified, print version number and exit. 
+    If specified, print plugin version number.
 
 
 Run
 ~~~
 
-While :code:`pl-fshack-infant` is meant to be run as a containerized Docker image — typically within ChRIS — it is possible to run the plugin directly from the command line as well.
+While :code:`pl-fshack-infant` is meant to be run as a containerized Docker image — typically within ChRIS — it is possible to run the plugin directly from the command line as well using :code:`__main__.py` as an entrypoint.
 
 If using :code:`docker run`, you must specify input and output directories using the volume :code:`-v` flag.
 
@@ -180,4 +214,4 @@ Build the Docker container:
 
 
 .. image:: https://raw.githubusercontent.com/FNNDSC/cookiecutter-chrisapp/master/doc/assets/badge/light.png
-    :target: https://chrisstore.co
+    :target: https://chrisstore.co/plugin/83

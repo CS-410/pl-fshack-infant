@@ -50,7 +50,7 @@ Usage
         [--meta]
         [-v|--verbosity <level>]
         [--version]
-    <inputDir> <outputDir>
+        <inputDir> <outputDir>
 
 
 Arguments

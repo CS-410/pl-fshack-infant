@@ -160,7 +160,7 @@ Clone either or both of these repositories into the newly created :code:`devel` 
 
 It should be noted that the :code:`recon-all` command will take multiple hours to finish!
 
-Moreover, using both the :code:`-all` and :code:`-notailarach` flags will result in an error; as such, they must not be used together.
+Moreover, using both the :code:`-all` and :code:`-talairach` flags will result in an error; as such, they must not be used together.
 
 For :code:`NifTI` inputs:
 
@@ -181,12 +181,12 @@ For :code:`DICOM` inputs:
 
     docker run --rm                                                                \
                -v ${DEVEL}/SAG-anon-nii/:/incoming -v ${DEVEL}/results/:/outgoing  \
-		fnndsc/pl-fshack-infant fshack_infant.py                           \
-                -i 0001-1.3.12.2.1107.5.2.19.45152.2013030808110258929186035.dcm   \
-                -o recon-of-SAG-anon-dcm                                           \
-                --exec recon-all                                                   \
-                --args 'ARGS: -all'                                                \
-                /incoming /outgoing
+               fnndsc/pl-fshack-infant fshack_infant.py                            \
+               -i 0001-1.3.12.2.1107.5.2.19.45152.2013030808110258929186035.dcm    \
+               -o recon-of-SAG-anon-dcm                                            \
+               --exec recon-all                                                    \
+               --args 'ARGS: -all'                                                 \
+               /incoming /outgoing
 
 
 :code:`mri_convert`

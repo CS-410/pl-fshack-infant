@@ -107,7 +107,7 @@ Arguments
     [--meta]
     If specified, print plugin metadata.
         
-    [-v <level>] [--verbosity <level>]
+    [-v|--verbosity <level>]
     Verbosity level for app. Not used currently.
     
     [--version]

@@ -37,18 +37,18 @@ Gstr_synopsis = """
     SYNOPSIS
         python fshack_infant.py
             [-i|--inputFile <file>]
-	        [-o|--outputFile <file>]
+            [-o|--outputFile <file>]
             [-e|--exec <command>]
-	        [-a|--args <arguments>]
-	        [-h|--help]
-	        [--man]
-	        [--meta]
-	        [--json]
-	        [--savejson <directory>]
-	        [-v|--verbosity <level>]
-	        [--version]
-	        <inputDir> <outputDir>
-	        
+            [-a|--args <arguments>]
+            [-h|--help]
+            [--man]
+            [--json]
+            [--savejson <directory>]
+            [--meta]
+            [-v|--verbosity <level>]
+            [--version]
+            <inputDir> <outputDir>
+
     DESCRIPTION
         This ChRIS DS plugin contains a complete Infant FreeSurfer distribution.
         Not all FreeSurfer internal applications are exposed at the plugin level,
@@ -121,10 +121,10 @@ Gstr_synopsis = """
 
 class Fshack_infant(ChrisApp):
     DESCRIPTION  = '''
-        This app houses a complete FreeSurfer distro and exposes some
-        FreeSurfer apps at the level of the plugin CLI.'
+        This app houses a complete Infant FreeSurfer distro and exposes
+        some Infant FreeSurfer apps at the level of the plugin CLI.
     '''
-    AUTHORS                 = 'FNNDSC (dev@babyMRI.org)'
+    AUTHORS                 = 'FNNDSC / CS410 (dev@babyMRI.org)'
     SELFPATH                = os.path.dirname(os.path.abspath(__file__))
     SELFEXEC                = os.path.basename(__file__)
     EXECSHELL               = 'python3'
@@ -132,7 +132,7 @@ class Fshack_infant(ChrisApp):
     CATEGORY                = ''
     TYPE                    = 'ds'
     DOCUMENTATION           = 'https://github.com/CS-410/pl-fshack-infant'
-    VERSION                 = '1.0.0'
+    VERSION                 = '1.0.1'
     ICON                    = ''  # url of an icon image
     LICENSE                 = 'Opensource (MIT)'
     MAX_NUMBER_OF_WORKERS   = 1   # Override with integer value

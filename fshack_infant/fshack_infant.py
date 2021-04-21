@@ -120,10 +120,7 @@ Gstr_synopsis = """
 
 
 class Fshack_infant(ChrisApp):
-    DESCRIPTION  = '''
-        This app houses a complete Infant FreeSurfer distro and exposes
-        some Infant FreeSurfer apps at the level of the plugin CLI.
-    '''
+    DESCRIPTION             = 'This app houses a complete Infant FreeSurfer distro and exposes some Infant FreeSurfer apps at the level of the plugin CLI.'
     AUTHORS                 = 'FNNDSC / CS410 (dev@babyMRI.org)'
     SELFPATH                = os.path.dirname(os.path.abspath(__file__))
     SELFEXEC                = os.path.basename(__file__)

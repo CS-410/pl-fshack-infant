@@ -37,6 +37,8 @@ RUN apt-get update -q                                         \
 
 RUN curl -C - "$FS_URL/$FS_FILENAME" | tar -C /usr/local -xz
 
+RUN mv license.txt /usr/local/freesurfer
+
 RUN export LANGUAGE="$LOCALE"                                 \
     && export LANG="$LOCALE"                                  \
     && export LC_ALL="$LOCALE"                                \

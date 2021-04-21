@@ -133,7 +133,7 @@ class Fshack_infant(ChrisApp):
     TYPE                    = 'ds'
     DOCUMENTATION           = 'https://github.com/CS-410/pl-fshack-infant'
     VERSION                 = '1.0.1'
-    ICON                    = ''  # url of an icon image
+    ICON                    = ''  # URL of an icon image
     LICENSE                 = 'Opensource (MIT)'
     MAX_NUMBER_OF_WORKERS   = 1   # Override with integer value
     MIN_NUMBER_OF_WORKERS   = 1   # Override with integer value
@@ -162,7 +162,7 @@ class Fshack_infant(ChrisApp):
         Define the CLI arguments accepted by this plugin app.
         """
         self.add_argument("-a", "--args",
-                          help      = "Infant FreeSurfer arguments to pass",
+                          help      = "Arguments to pass to FS app",
                           type      = str,
                           dest      = 'args',
                           optional=True,

@@ -1,10 +1,10 @@
 pl-fshack-infant
 ================================
 
-.. image:: https://img.shields.io/docker/v/fnndsc/pl-fshack-infant?sort=semver
+.. image:: https://img.shields.io/docker/v/cs410/pl-fshack-infant?sort=semver
     :target: https://hub.docker.com/r/cs410/pl-fshack-infant
 
-.. image:: https://img.shields.io/github/license/fnndsc/pl-fshack-infant
+.. image:: https://img.shields.io/github/license/cs-410/pl-fshack-infant
     :target: https://github.com/CS-410/pl-fshack-infant/blob/master/LICENSE
 
 

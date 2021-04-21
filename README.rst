@@ -203,6 +203,19 @@ For :code:`DICOM` inputs:
                /incoming /outgoing
 
 
+:code:`mri_info`
+***************
+
+.. code:: bash
+
+    docker run --rm                                                                \
+               -v ${DEVEL}/SAG-anon-nii/:/incoming -v ${DEVEL}/results/:/outgoing  \
+               fnndsc/pl-fshack-infant fshack_infant.py                            \
+               -i SAG-anon.nii                                                     \
+               --exec mri_info                                                     \
+               /incoming /outgoing
+
+
 Development
 -----------
 

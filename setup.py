@@ -11,10 +11,10 @@ with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
 
 setup(
     name             = 'fshack_infant',
-    version          = '1.0.0',
+    version          = '1.0.1',
     description      = 'An app to ...',
     long_description = readme,
-    author           = 'FNNDSC',
+    author           = 'FNNDSC / CS410',
     author_email     = 'dev@babyMRI.org',
     url              = 'http://wiki',
     packages         = ['fshack_infant'],

@@ -3,7 +3,7 @@
 # Add plugins specifically for the COVIDNET feedflow.
 #
 
-./plugin_add.sh  "fnndsc/pl-fshack-infant"
+./plugin_add.sh  "cs410/pl-fshack-infant"
 
 #
 # Adding additional users

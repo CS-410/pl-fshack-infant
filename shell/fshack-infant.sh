@@ -18,7 +18,7 @@ declare -a a_WORKFLOWSPEC=(
                                         --title=BrainMRI_MPC"
 
     "0:1|
-    fnndsc/pl-fshack-infant:            ARGS;
+    cs410/pl-fshack-infant:             ARGS;
                                         --exec=recon-all;
                                         --inputFile=.dcm;
                                         --outputFile=reconstruction;

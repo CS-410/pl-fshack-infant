@@ -19,13 +19,11 @@ declare -a a_WORKFLOWSPEC=(
 
     "0:1|
     fnndsc/pl-fshack-infant:            ARGS;
-                                        --exec recon-all;
+                                        --exec=recon-all;
                                         --inputFile=.dcm;
                                         --outputFile=reconstruction;
                                         --title=FreeSurfer_Infant;
                                         --previous_id=@prev_id"
-                                       
-
 )
 
 declare -a a_PLUGINS=()
@@ -53,8 +51,6 @@ SYNPOSIS
                         [-u <user>]                         \\
                         [-w <passwd>]                       \\
                         [-G <graphvizDotFile>]              \\
-                        [-i <listOfLungImagesToProcess>]    \\
-                        [-s <sleepAfterPluginRun>]
 
 DESC
 

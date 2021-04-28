@@ -20,7 +20,10 @@ declare -a a_WORKFLOWSPEC=(
     "0:1|
     fnndsc/pl-fshack-infant:            ARGS;
                                         --title=FreeSurfer_Infant;
-                                        --previous_id=@prev_id"
+                                        --previous_id=@prev_id";
+                                        --exec recon-all;
+                                        --inputFile=.dcm;
+                                        --outputFile=reconstruction
 
 )
 

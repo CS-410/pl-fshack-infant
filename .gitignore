@@ -132,3 +132,5 @@ dmypy.json
 freesurfer/
 in/
 out/
+
+dc.out

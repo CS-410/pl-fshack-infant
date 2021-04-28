@@ -168,7 +168,7 @@ For :code:`NifTI` inputs:
 
     docker run --rm                                                                \
                -v ${DEVEL}/SAG-anon-nii/:/incoming -v ${DEVEL}/results/:/outgoing  \
-               fnndsc/pl-fshack-infant fshack_infant.py                            \
+               cs410/pl-fshack-infant fshack_infant.py                             \
                -i SAG-anon.nii                                                     \
                -o recon-of-SAG-anon-nii                                            \
                --exec recon-all                                                    \
@@ -180,8 +180,8 @@ For :code:`DICOM` inputs:
 .. code:: bash
 
     docker run --rm                                                                \
-               -v ${DEVEL}/SAG-anon-nii/:/incoming -v ${DEVEL}/results/:/outgoing  \
-               fnndsc/pl-fshack-infant fshack_infant.py                            \
+               -v ${DEVEL}/SAG-anon/:/incoming -v ${DEVEL}/results/:/outgoing      \
+               cs410/pl-fshack-infant fshack_infant.py                             \
                -i 0001-1.3.12.2.1107.5.2.19.45152.2013030808110258929186035.dcm    \
                -o recon-of-SAG-anon-dcm                                            \
                --exec recon-all                                                    \
@@ -195,8 +195,8 @@ For :code:`DICOM` inputs:
 .. code:: bash
 
     docker run --rm                                                                \
-               -v ${DEVEL}/SAG-anon-nii/:/incoming -v ${DEVEL}/results/:/outgoing  \ 
-               fnndsc/pl-fshack-infant fshack_infant.py                            \
+               -v ${DEVEL}/SAG-anon/:/incoming -v ${DEVEL}/results/:/outgoing      \ 
+               cs410/pl-fshack-infant fshack_infant.py                             \
                -i 0001-1.3.12.2.1107.5.2.19.45152.2013030808110258929186035.dcm    \
                -o DCM2NII.nii                                                      \
                --exec mri_convert                                                  \
@@ -210,7 +210,7 @@ For :code:`DICOM` inputs:
 
     docker run --rm                                                                \
                -v ${DEVEL}/SAG-anon-nii/:/incoming -v ${DEVEL}/results/:/outgoing  \
-               fnndsc/pl-fshack-infant fshack_infant.py                            \
+               cs410/pl-fshack-infant fshack_infant.py                             \
                -i SAG-anon.nii                                                     \
                --exec mri_info                                                     \
                /incoming /outgoing

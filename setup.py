@@ -11,7 +11,7 @@ with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
 
 setup(
     name             = 'fshack_infant',
-    version          = '1.0.1',
+    version          = '1.0.2',
     description      = 'An app to ...',
     long_description = readme,
     author           = 'FNNDSC / CS410',

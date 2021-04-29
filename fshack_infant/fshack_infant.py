@@ -94,10 +94,9 @@ Gstr_synopsis = """
         the CLI arguments for a single app specified by the `exec` flag. To this
         end, all the arguments for a given supported internal FreeSurfer app are
         themselves specified at the plugin level with this flag. These arguments
-        MUST be contained within single quotes (to protect them from the shell)
-        and the quoted string MUST start with the required keyword 'ARGS: '. If
-        the FS app does not require additional CLI arguments, then this flag can
-        be safely omitted.
+        MUST be contained within single quotes (to protect them from the shell).
+        If the FS app does not require additional CLI arguments, then this flag
+        can be safely omitted.
         
         [-h|--help]
         If specified, show help message.
@@ -129,7 +128,7 @@ class Fshack_infant(ChrisApp):
     CATEGORY                = ''
     TYPE                    = 'ds'
     DOCUMENTATION           = 'https://github.com/CS-410/pl-fshack-infant'
-    VERSION                 = '1.0.1'
+    VERSION                 = '1.0.2'
     ICON                    = ''  # URL of an icon image
     LICENSE                 = 'Opensource (MIT)'
     MAX_NUMBER_OF_WORKERS   = 1   # Override with integer value
@@ -159,13 +158,13 @@ class Fshack_infant(ChrisApp):
         Define the CLI arguments accepted by this plugin app.
         """
         self.add_argument("-a", "--args",
-                          help      = "Arguments to pass to FS app",
+                          help      = "Arguments to pass to Infant FS app",
                           type      = str,
                           dest      = 'args',
-                          optional=True,
+                          optional  = True,
                           default   = "")
         self.add_argument("-e", "--exec",
-                          help      = "Infant FreeSurfer app to run",
+                          help      = "Infant FS app to run",
                           type      = str,
                           dest      = 'exec',
                           optional  = True,
@@ -269,44 +268,45 @@ class Fshack_infant(ChrisApp):
         global str_cmd
         print(Gstr_title)
         print('Version: %s' % self.get_version())
-        for k,v in options.__dict__.items():
+        for k, v in options.__dict__.items():
             print("%20s:  -->%s<--" % (k, v))
-        self.options    = options
+            if k == 'args':
+               options.__dict__[k]='{' + v + '}'
+
+        self.options = options
 
         self.inputFileSpec_parse(options)
 
-        str_args    = ""
-        l_appargs   = options.args.split('ARGS:')
-        if len(l_appargs) == 2:
-            str_args = l_appargs[1]
+        if not options.args.startswith('{') and not options.args.endswith('}'):
+            options.args = ''
         else:
-            str_args = l_appargs[0]
+            options.args = options.args[1:-1]
 
-        str_FSbinDir    = '/usr/local/freesurfer/bin'
-        str_cmd         = ""
+        str_FSbinDir = '/usr/local/freesurfer/bin'
+        str_cmd = ""
         if options.exec == 'recon-all':
             str_cmd = '%s/%s -i %s/%s -subjid %s/%s %s ' % \
                       (str_FSbinDir,
                        options.exec, options.inputdir, options.inputFile,
-                       options.outputdir, options.outputFile, str_args)
+                       options.outputdir, options.outputFile, options.args)
 
         if options.exec == 'mri_convert':
             str_cmd = '%s/%s %s/%s  %s/%s %s ' % \
                       (str_FSbinDir,
                        options.exec, options.inputdir, options.inputFile,
-                       options.outputdir, options.outputFile, str_args)
+                       options.outputdir, options.outputFile, options.args)
 
         if options.exec == 'mri_info':
             str_cmd = '%s/%s %s/%s %s ' % \
                       (str_FSbinDir,
                        options.exec, options.inputdir, options.inputFile,
-                       str_args)
+                       options.args)
 
         if options.exec == 'mris_info':
             str_cmd = '%s/%s %s/%s %s' % \
                       (str_FSbinDir,
                        options.exec, options.inputdir, options.inputFile,
-                       str_args)
+                       options.args)
 
         # Run the job and provide realtime stdout
         # and post-run stderr

@@ -88,9 +88,8 @@ Arguments
     end, all the arguments for a given supported internal FreeSurfer app are
     themselves specified at the plugin level with this flag. These arguments
     MUST be contained within single quotes (to protect them from the shell)
-    and the quoted string MUST start with the required keyword 'ARGS: '. If
-    the FS app does not require additional CLI arguments, then this flag can
-    be safely omitted.
+    AND curly brackets (to protect from Python). If the FS app does not
+    require additional CLI arguments, then this flag can be safely omitted.
     
     [-h|--help]
     If specified, show help message.
@@ -172,7 +171,7 @@ For :code:`NifTI` inputs:
                -i SAG-anon.nii                                                     \
                -o recon-of-SAG-anon-nii                                            \
                --exec recon-all                                                    \
-               --args 'ARGS: -all'                                                 \
+               --args '{ -all }'                                                   \
                /incoming /outgoing
 
 For :code:`DICOM` inputs:
@@ -185,7 +184,7 @@ For :code:`DICOM` inputs:
                -i 0001-1.3.12.2.1107.5.2.19.45152.2013030808110258929186035.dcm    \
                -o recon-of-SAG-anon-dcm                                            \
                --exec recon-all                                                    \
-               --args 'ARGS: -all'                                                 \
+               --args '{ -all }'                                                   \
                /incoming /outgoing
 
 

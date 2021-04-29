@@ -95,10 +95,8 @@ Gstr_synopsis = """
         end, all the arguments for a given supported internal FreeSurfer app are
         themselves specified at the plugin level with this flag. These arguments
         MUST be enclosed within single quotes (to protect them from the shell)
-        AND curly brackets (to protect from Python).
-
-        If the FS app does not require additional CLI arguments, then this flag
-        can be safely omitted.
+        AND curly brackets (to protect from Python). If the FS app does not
+        require additional CLI arguments, then this flag can be safely omitted.
         
         [-h|--help]
         If specified, show help message.

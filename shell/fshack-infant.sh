@@ -20,6 +20,7 @@ declare -a a_WORKFLOWSPEC=(
     "0:1|
     cs410/pl-fshack-infant:             ARGS;
                                         --exec=recon-all;
+                                        --args={ -all };
                                         --inputFile=.dcm;
                                         --outputFile=reconstruction;
                                         --title=FreeSurfer_Infant;

@@ -94,7 +94,9 @@ Gstr_synopsis = """
         the CLI arguments for a single app specified by the `exec` flag. To this
         end, all the arguments for a given supported internal FreeSurfer app are
         themselves specified at the plugin level with this flag. These arguments
-        MUST be contained within single quotes (to protect them from the shell).
+        MUST be enclosed within single quotes (to protect them from the shell)
+        AND curly brackets (to protect from Python).
+
         If the FS app does not require additional CLI arguments, then this flag
         can be safely omitted.
         
@@ -270,8 +272,6 @@ class Fshack_infant(ChrisApp):
         print('Version: %s' % self.get_version())
         for k, v in options.__dict__.items():
             print("%20s:  -->%s<--" % (k, v))
-            if k == 'args':
-               options.__dict__[k]='{' + v + '}'
 
         self.options = options
 
